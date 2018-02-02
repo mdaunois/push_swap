@@ -6,13 +6,16 @@
 #    By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 15:12:41 by clecalie          #+#    #+#              #
-#    Updated: 2018/01/25 16:11:00 by mdaunois         ###   ########.fr        #
+#    Updated: 2018/02/02 15:16:23 by mdaunois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = checker.a
 
-SRCS =	test.c
+SRCS =	checker.c\
+		mouv.c\
+		init.c\
+		outil.c
 
 OBJ = $(SRCS:.c=.o)
 
