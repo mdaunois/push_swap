@@ -6,102 +6,165 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 15:20:07 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/01 17:55:11 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/02 11:51:24 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <stdio.h>
-//#include <stdlib.h>
 #include "checker.h"
 
-int *sa(int *tab1, int len)
+t_pile	ra(t_pile pile)
 {
 	int temp;
 	int i;
 
 	i = 0;
-	temp = tab1[0];
-	while (i < len - 1)
+	temp = pile.tab[0];
+	while (i < pile.size)
 	{
-		tab1[i] = tab1[i + 1];
+		pile.tab[i] = pile.tab[i + 1];
 		i++;
 	}
-	tab1[--i] = temp;
-	return (tab1);
+	pile.tab[--i] = temp;
+	return (pile);
 }
 
-int *ra(int *tab1)
+t_pile	rra(t_pile pile)
+{
+	int temp;
+	int i;
+
+	i = pile.size - 1;
+	temp = pile.tab[i];
+	while (i > 0)
+	{
+		pile.tab[i] = pile.tab[i - 1];
+		i--;
+	}
+	pile.tab[0] = temp;
+	return (pile);
+}
+
+t_pile	sa(t_pile pile)
 {
 	int temp;
 
-	temp = tab1[0];
-	tab1[0] = tab1[1];
-	tab1[1] = temp;
-	return (tab1);
+	temp = pile.tab[0];
+	pile.tab[0] = pile.tab[1];
+	pile.tab[1] = temp;
+	return (pile);
 }
 
-void affiche_tab(int *tab1, int len)
+void	pa(t_pile *pile1, t_pile *pile2)
+{
+	pile2->size++;
+	*pile2 = rra(*pile2);
+	pile2->tab[0] = pile1->tab[0];
+	*pile1 = ra(*pile1);
+	pile1->size--;
+}
+
+void	affiche_tab(t_pile pile)
 {
 	int i;
 
 	i = 0;
-	while (i < len - 1)
+	while (i < pile.size)
 	{
-		ft_putnbr(tab1[i]);
+		ft_putnbr(pile.tab[i]);
 		ft_putstr(" ");
 		i++;
 	}
 	ft_putstr("\n");
 }
 
+int		check(t_pile pile1, t_pile pile2)
+{
+	int i;
+
+	i = 0;
+	if (pile2.size == 0)
+	{
+		while (i < pile1.size - 1)
+		{
+			if (pile1.tab[i] > pile1.tab[i + 1])
+				return (0);
+			i++;
+		}
+		return (1);	
+	}
+	return (0);
+}
+
 int		main(int argc, char *argv[])
 {
-	int *tab1;
-	int *tab2;
+	t_pile pile1;
+	t_pile pile2;
 	int i;
 	int order;
 	char *content;
-	int len;
 
-	len = argc;
+	pile1.size = argc - 1;
+	pile2.size = 0;
 	i = 0;
 	content = "toto";
 	if (argc == 0)
 	{
 		return (0);
 	}
-	tab1 = (int*)malloc(sizeof(tab1) * argc);
-	tab2 = (int*)malloc(sizeof(tab1) * argc);
-	while (i + 1 < argc)
+	pile1.tab = (int*)malloc(sizeof(int) * argc);
+	pile2.tab = (int*)malloc(sizeof(int) * argc);
+	while (i < pile1.size)
 	{
-		tab1[i] = atoi(argv[i + 1]);
-		printf("%d\n", tab1[i]);
+		pile1.tab[i] = atoi(argv[i + 1]);
+		printf("%d ", pile1.tab[i]);
 		i++;
 	}
+	printf("\n");
 	while (ft_strcmp(content, "stop"))
 	{
 		order = get_next_line(0, &content);
 		if (!ft_strcmp(content, "sa"))
-		{
-			printf("sa\n");
-			tab1 = sa(tab1, len);
-		}
+			pile1 = sa(pile1);
 		if (!ft_strcmp(content, "sb"))
+			pile2 = sa(pile2);
+		if (!ft_strcmp(content, "ss"))
 		{
-			printf("sb\n");
-		//	tab2 = sa(tab2, len);
+			pile1 = sa(pile1);
+			pile2 = sa(pile2);
 		}
 		if (!ft_strcmp(content, "ra"))
-		{
-			printf("ra\n");
-			tab1 = ra(tab1);
-		}
+			pile1 = ra(pile1);
 		if (!ft_strcmp(content, "rb"))
+			pile2 = ra(pile2);
+		if (!ft_strcmp(content, "rr"))
 		{
-			printf("rb\n");
-		//	tab2 = ra(tab2);
+			pile1 = ra(pile1);
+			pile2 = ra(pile2);
 		}
-		affiche_tab(tab1, len);
-	}
+		if (!ft_strcmp(content, "rra"))
+			pile1 = rra(pile1);
+		if (!ft_strcmp(content, "rrb"))
+			pile2 = rra(pile2);
+		if (!ft_strcmp(content, "rrr"))
+		{
+			pile1 = rra(pile1);
+			pile2 = rra(pile2);
+		}
+		if (!ft_strcmp(content, "pa"))
+			pa(&pile2, &pile1);
+		if (!ft_strcmp(content, "pb"))
+			pa(&pile1, &pile2);
+		ft_strdel(&content);
+/*		ft_putstr("pile A = ");
+		affiche_tab(pile1);
+		ft_putstr("pile B = ");
+		affiche_tab(pile2);
+*/	}
+	if (check(pile1, pile2) == 1)
+		ft_putstr("OK");
+	else
+		ft_putstr("KO");
+	free(pile1.tab);
+	while (1);
 	return (0);
 }
