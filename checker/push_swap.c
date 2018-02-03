@@ -66,8 +66,8 @@ int		main(int argc, char *argv[])
 		if (pile1.tab[0] > pile1.tab[pile1.size - 1])
 		{
 		//	ft_putnbr(pile1.tab[pile1.size - 1]);
-			ft_putstr("rra\n");
-			pile1 = rra(pile1);
+			ft_putstr("ra\n");
+			pile1 = ra(pile1);
 		}
 		else if (pile1.size > 1 && pile1.tab[0] > pile1.tab[1])
 		{
@@ -75,16 +75,22 @@ int		main(int argc, char *argv[])
 			pile1 = sa(pile1);
 			//	mouv[i] = ft_strdup("sa\n");
 		}
-		else if (check_pile(pile1) == 1 && pile2.tab[0] < pile1.tab[0])
+		else if (pile2.size > 1 && pile2.tab[0] < pile2.tab[pile2.size - 1])
 		{
-			ft_putstr("pa\n");
-			pa(&pile2, &pile1);	
+			ft_putstr("rb\n");
+			pile2 = ra(pile2);
+			//	mouv[i] = ft_strdup("sb\n");
 		}
 		else if (pile2.size > 1 && pile2.tab[0] < pile2.tab[1])
 		{
 			ft_putstr("sb\n");
 			pile2 = sa(pile2);
 			//	mouv[i] = ft_strdup("sb\n");
+		}
+		else if (check_pile(pile1) == 1 && pile2.tab[0] < pile1.tab[0])
+		{
+			ft_putstr("pa\n");
+			pa(&pile2, &pile1);	
 		}
 	/*	else if (pile1.tab[0] > pile2.tab[pile2.size])
 		{
@@ -100,7 +106,7 @@ int		main(int argc, char *argv[])
 			pa(&pile1, &pile2);
 			//	mouv[i] = ft_strdup("pb\n");
 		}
-		else if (pile1.tab[0] > pile1.tab[pile1.size])
+		else if (pile1.tab[0] > pile1.tab[pile1.size - 1])
 		{
 			ft_putstr("ra\n");
 			pile1 = ra(pile1);
@@ -111,16 +117,16 @@ int		main(int argc, char *argv[])
 			ft_putstr("pb\n");
 			pa(&pile1, &pile2);
 		}
-		ft_putstr("pile A =");
+/*		ft_putstr("pile A =");
 		affiche_tab(pile1);
 		ft_putstr("pile B =");
 		affiche_tab(pile2);
-		sleep(1);
+*/		//sleep(1);
 	}
-	ft_putstr("pile A =");
+/*	ft_putstr("pile A =");
 	affiche_tab(pile1);
 	ft_putstr("pile B =");
 	affiche_tab(pile2);
-	return (0);
+*/	return (0);
 
 }
