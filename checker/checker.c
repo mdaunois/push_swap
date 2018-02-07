@@ -6,7 +6,7 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 15:20:07 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/02 16:52:39 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/07 13:29:40 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ int		main(int argc, char *argv[])
 		ft_putstr_fd("Error\n", 2);
 		return (0);
 	}
-	while (ft_strcmp(content, "stop"))
+	while ((order = get_next_line(0, &content)) > 0)
 	{
-		order = get_next_line(0, &content);
 		if (!ft_strcmp(content, "sa"))
 			pile1 = sa(pile1);
 		else if (!ft_strcmp(content, "sb"))

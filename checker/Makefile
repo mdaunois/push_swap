@@ -6,7 +6,7 @@
 #    By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 15:12:41 by clecalie          #+#    #+#              #
-#    Updated: 2018/02/02 15:16:23 by mdaunois         ###   ########.fr        #
+#    Updated: 2018/02/07 14:35:35 by mdaunois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,19 +24,22 @@ OBJ = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	make -C libft/
-	ar rc $(NAME) $(OBJ) libft/libft.a libft/*.o
+	@echo "Compilation..."
+	@make -C libft/
+	@ar rc $(NAME) $(OBJ) libft/libft.a libft/*.o
 
  %.o: %.c
-	gcc -c $< $(FLAGS) -I libft/includes
+	@gcc -c $< $(FLAGS) -I libft/includes
 
 clean:
-	make -C libft/ clean
-	rm -f $(OBJ)
+	@echo "Supretion des .o"
+	@make -C libft/ clean
+	@rm -f $(OBJ)
 
 fclean: clean
-	make -C libft/ fclean
-	rm -f $(NAME)
+	@echo "et de l'executable"
+	@make -C libft/ fclean
+	@rm -f $(NAME)
 
 re: fclean all
 
