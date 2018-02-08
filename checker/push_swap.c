@@ -6,7 +6,7 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:09:40 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/08 13:51:03 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:45:05 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ int		check_pile(t_pile pile)
 		i++;
 	}
 	return (1);
+}
+
+void	print_pile(t_pile pile1, t_pile pile2)
+{
+	ft_putstr("pile A =");
+	affiche_tab(pile1);
+	ft_putstr("pile B =");
+	affiche_tab(pile2);
+	//sleep(1);
 }
 
 void	petite_pile(t_pile pile1, t_pile pile2)
@@ -88,6 +97,7 @@ void	petite_pile(t_pile pile1, t_pile pile2)
 			ft_putstr("pb\n");
 			pa(&pile1, &pile2);
 		}
+		print_pile(pile1, pile2);
 /*				ft_putstr("pile A =");
 				affiche_tab(pile1);
 				ft_putstr("pile B =");
@@ -116,7 +126,22 @@ int le_plus_petit(t_pile pile1, int lowest)
 	return (plus_petit);
 }
 
-void	petit_fin(t_pile pile1, t_pile pile2, int pivot)
+int		au_debut(t_pile pile, int lowest)
+{
+	int i;
+
+	i = 0;
+	while (i < (pile.size / 2))
+	{
+		if (pile.tab[i] == lowest)
+		{
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+void	petit_fin(t_pile *pile1, t_pile *pile2, int pivot)
 {
 	int lowest;
 	int plus_petit;
@@ -124,66 +149,92 @@ void	petit_fin(t_pile pile1, t_pile pile2, int pivot)
 	int i;
 
 	i = 0;
-	len = pile1.size / 2;
-	lowest = pile1.tab[0];
+	len = pile1->size / 2;
+	lowest = pile1->tab[0];
 	ft_putstr("ra\n");
-	pile1 = ra(pile1);
-//	printf("pivot = %d\n", pivot);
-	while (pile1.tab[0] <= pivot)
+	*pile1 = ra(*pile1);
+	while (pile1->tab[0] <= pivot)
 	{
-		if (pile2.size == 0)
+		if (pile2->size == 0)
 		{
-			if (le_plus_petit(pile1, lowest) == pile1.tab[0])
+			if (le_plus_petit(*pile1, lowest) == pile1->tab[0])
 			{
-				ft_putstr("ra\n");
-				pile1 = ra(pile1);
+				if (pile2->tab[0] > pile2->tab[1])
+				{
+				ft_putstr("rr\n");
+				*pile1 = ra(*pile1);	
+				*pile2 = ra(*pile2);	
+				}
+				else
+				{
+					ft_putstr("ra\n");
+					*pile1 = ra(*pile1);
+				}
 			}
 			else
 			{
 				ft_putstr("pb\n");
-				pa(&pile1, &pile2);
+				pa(pile1, pile2);
 			}
 		}
 		else
 		{	
-			if (le_plus_petit(pile2, lowest) < le_plus_petit(pile1, lowest))
+			if (le_plus_petit(*pile2, lowest) < le_plus_petit(*pile1, lowest))
 			{
-				while (pile2.tab[0] != le_plus_petit(pile2, lowest))
+				if (au_debut(*pile2, le_plus_petit(*pile2, lowest)) == 1)
 				{
-					ft_putstr("rb\n");
-					pile2 = ra(pile2);
+					while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
+					{
+						ft_putstr("rb\n");
+						*pile2 = ra(*pile2);
+					}
+				}
+				else
+				{
+					while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
+					{
+						ft_putstr("rrb\n");
+						*pile2 = rra(*pile2);
+					}	
 				}
 				ft_putstr("pa\n");
-				pa(&pile2, &pile1);
+				pa(pile2, pile1);
 				ft_putstr("ra\n");
-				pile1 = ra(pile1);
+				*pile1 = ra(*pile1);
+			}
+			else if(pile1->tab[0] == le_plus_petit(*pile1, lowest))
+			{
+				ft_putstr("ra\n");
+				*pile1 = ra(*pile1);	
 			}
 			else
 			{
 				ft_putstr("pb\n");
-				pa(&pile1, &pile2);
+				pa(pile1, pile2);
 			}	
 		}
 		i++;
+//		print_pile(*pile1, *pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(pile1);
 		ft_putstr("pile B =");
 		affiche_tab(pile2);
 		usleep(20000);
 */	}
-	while (pile2.size != 0)
+	while (pile2->size != 0)
 	{
-				while (pile2.tab[0] != le_plus_petit(pile2, lowest))
+				while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
 				{
 					ft_putstr("rb\n");
-					pile2 = ra(pile2);
+					*pile2 = ra(*pile2);
 				}
 				ft_putstr("pa\n");
-				pa(&pile2, &pile1);
+				pa(pile2, pile1);
 				ft_putstr("ra\n");
-				pile1 = ra(pile1);
+				*pile1 = ra(*pile1);
 		
 	}
+//		print_pile(*pile1, *pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(pile1);
 		ft_putstr("pile B =");
@@ -210,8 +261,17 @@ void tri_final(t_pile *pile1, t_pile *pile2)
 		{
 			if (le_plus_petit(*pile1, lowest) == pile1->tab[0])
 			{
-				ft_putstr("ra\n");
-				*pile1 = ra(*pile1);
+				if (pile2->tab[0] > pile2->tab[1])
+				{
+				ft_putstr("rr\n");
+				*pile1 = ra(*pile1);	
+				*pile2 = ra(*pile2);	
+				}
+				else
+				{
+					ft_putstr("ra\n");
+					*pile1 = ra(*pile1);
+				}
 			}
 			else
 			{
@@ -223,15 +283,31 @@ void tri_final(t_pile *pile1, t_pile *pile2)
 		{	
 			if (le_plus_petit(*pile2, lowest) < le_plus_petit(*pile1, lowest))
 			{
-				while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
+				if (au_debut(*pile2, le_plus_petit(*pile2, lowest)) == 1)
 				{
-					ft_putstr("rb\n");
-					*pile2 = ra(*pile2);
+					while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
+					{
+						ft_putstr("rb\n");
+						*pile2 = ra(*pile2);
+					}
+				}
+				else
+				{
+					while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
+					{
+						ft_putstr("rrb\n");
+						*pile2 = rra(*pile2);
+					}	
 				}
 				ft_putstr("pa\n");
 				pa(pile2, pile1);
 				ft_putstr("ra\n");
 				*pile1 = ra(*pile1);
+			}
+			else if(pile1->tab[0] == le_plus_petit(*pile1, lowest))
+			{
+				ft_putstr("ra\n");
+				*pile1 = ra(*pile1);	
 			}
 			else
 			{
@@ -240,13 +316,13 @@ void tri_final(t_pile *pile1, t_pile *pile2)
 			}	
 		}
 		i++;
+//		print_pile(*pile1, *pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(*pile1);
 		ft_putstr("pile B =");
 		affiche_tab(*pile2);
 *///		usleep(200000);
 	}
-//	printf("-----------------------\n");
 	while (pile2->size != 0)
 	{
 				while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
@@ -260,6 +336,7 @@ void tri_final(t_pile *pile1, t_pile *pile2)
 				*pile1 = ra(*pile1);
 		
 	}
+//		print_pile(*pile1, *pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(*pile1);
 		ft_putstr("pile B =");
@@ -304,7 +381,6 @@ void	quickSort4(t_pile pile1, t_pile pile2, int pivot_1)
 	int len;
 
 	len = pile1.size;
-//	pivot = pile1.tab[pile1.size - 1];
 	pivot = edit_pivot(pile1, 0, 1);
 	i = 0;
 	if (pile1.size == 2)
@@ -314,25 +390,14 @@ void	quickSort4(t_pile pile1, t_pile pile2, int pivot_1)
 			ft_putstr("sa\n");
 			pile1 = sa(pile1);
 		}
-	/*	ft_putstr("pa\n");
-		ft_putstr("pa\n");
-		pa(&pile1, &pile2);	
-		pa(&pile1, &pile2);	
-		sleep(2);
-*/		tri_final(&pile2, &pile1);
-
-	//	printf("------size = %d, size_nosort = %d-----------\n", pile2.size, pile2.size_nosort);
-//		pile2.size_nosort = (pile2.size / 2) + 1;
-	//	if (pile2.tab[0] < pivot_1)
+		tri_final(&pile2, &pile1);
+//		print_pile(pile1, pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(pile2);
 		ft_putstr("pile B =");
 		affiche_tab(pile1);
 */		return;
-//		quickSort3(pile2, pile1, pile2.size_nosort);
-	//	return;
 	}
-//	printf("pivot = %d\n", pivot);
 	while (j < len)
 	{
 		j++;
@@ -346,15 +411,13 @@ void	quickSort4(t_pile pile1, t_pile pile2, int pivot_1)
 		ft_putstr("ra\n");
 		pile1 = ra(pile1);
 		}
+//		print_pile(pile1, pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(pile2);
 		ft_putstr("pile B =");
 		affiche_tab(pile1);
 		usleep(10000);
 */	}
-//	ft_putstr("------------------------------\n");
-//	sleep(1);
-//	quickSort(pile2, pile1);
 	pile1.size_nosort = pile1.size;
 	quickSort4(pile1, pile2, pivot_1);
 }
@@ -363,13 +426,8 @@ void	quickSort3(t_pile pile1, t_pile pile2, int len)
 	int pivot;
 	int i;
 	int j = 0;
-//	int len;
 
-//	len = pile1.size;
-//	pivot = pile1.tab[pile1.size - 1];
 	pivot = edit_pivot(pile1, 0, 1);
-//	printf("pivot = %d len = %d\n", pivot, len);
-//	sleep(2);
 	i = 0;
 	if (check_pile(pile1) == 1)
 	{
@@ -378,8 +436,6 @@ void	quickSort3(t_pile pile1, t_pile pile2, int len)
 		petite_pile(pile1, pile2);
 		return;
 	}
-//	ft_putstr("------------------------------\n");
-//	printf("pivot = %d\n", pivot);
 	while (j < len)
 	{
 		j++;
@@ -394,18 +450,18 @@ void	quickSort3(t_pile pile1, t_pile pile2, int len)
 			pile1 = ra(pile1);
 			i++;
 		}
+//		print_pile(pile1, pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(pile1);
 		ft_putstr("pile B =");
 		affiche_tab(pile2);
 		usleep(10000);
 */	}
-//	ft_putstr("------------------------------\n");
-//	quickSort(pile2, pile1);
 	while (i > 0)
 	{
 		ft_putstr("rra\n");
 		pile1 = rra(pile1);
+//		print_pile(pile1, pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(pile1);
 		ft_putstr("pile B =");
@@ -424,7 +480,6 @@ void	quickSort2(t_pile pile1, t_pile pile2, int pivot_1)
 	int len;
 
 	len = pile1.size;
-//	pivot = pile1.tab[pile1.size - 1];
 	pivot = edit_pivot(pile1, 0, 1);
 	i = 0;
 	if (pile1.size == 2)
@@ -438,20 +493,16 @@ void	quickSort2(t_pile pile1, t_pile pile2, int pivot_1)
 		ft_putstr("pa\n");
 		pa(&pile1, &pile2);	
 		pa(&pile1, &pile2);	
+//		print_pile(pile2, pile1);
 /*		ft_putstr("pile A =");
 		affiche_tab(pile2);
 		ft_putstr("pile B =");
 		affiche_tab(pile1);
-		sleep(2);
-*/		petit_fin(pile2, pile1, pivot_1);
-
-//		printf("------size = %d, size_nosort = %d-----------\n", pile2.size, pile2.size_nosort);
+*/		petit_fin(&pile2, &pile1, pivot_1);
 		pile2.size_nosort = (pile2.size / 2) + 1;
-//		printf("------size = %d, size_nosort = %d-----------\n", pile2.size, pile2.size_nosort);
 		quickSort3(pile2, pile1, pile2.size_nosort);
 		return;
 	}
-//	printf("pivot = %d\n", pivot);
 	while (j < len)
 	{
 		j++;
@@ -462,18 +513,16 @@ void	quickSort2(t_pile pile1, t_pile pile2, int pivot_1)
 		}
 		else
 		{
-		ft_putstr("ra\n");
-		pile1 = ra(pile1);
+			ft_putstr("ra\n");
+			pile1 = ra(pile1);
 		}
+//		print_pile(pile2, pile1);
 /*		ft_putstr("pile A =");
 		affiche_tab(pile2);
 		ft_putstr("pile B =");
 		affiche_tab(pile1);
 		usleep(10000);
 */	}
-//	ft_putstr("------------------------------\n");
-//	sleep(1);
-//	quickSort(pile2, pile1);
 	pile1.size_nosort = pile1.size;
 	quickSort2(pile1, pile2, pivot_1);
 }
@@ -483,13 +532,7 @@ void	quickSort(t_pile pile1, t_pile pile2, int len)
 	int pivot;
 	int i;
 	int j = 0;
-//	int len;
-
-//	len = pile1.size;
-//	pivot = pile1.tab[pile1.size - 1];
 	pivot = edit_pivot(pile1, 0, 1);
-//	printf("pivot = %d len = %d\n", pivot, len);
-//	sleep(2);
 	i = 0;
 	if (check_pile(pile1) == 1)
 	{
@@ -498,8 +541,6 @@ void	quickSort(t_pile pile1, t_pile pile2, int len)
 		petite_pile(pile1, pile2);
 		return;
 	}
-//	ft_putstr("------------------------------\n");
-//	printf("pivot = %d\n", pivot);
 	while (j < len)
 	{
 		j++;
@@ -510,17 +551,16 @@ void	quickSort(t_pile pile1, t_pile pile2, int len)
 		}
 		else
 		{
-		ft_putstr("ra\n");
-		pile1 = ra(pile1);
+			ft_putstr("ra\n");
+			pile1 = ra(pile1);
 		}
+//		print_pile(pile1, pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(pile1);
 		ft_putstr("pile B =");
 		affiche_tab(pile2);
 		usleep(10000);
 */	}
-//	ft_putstr("------------------------------\n");
-//	quickSort(pile2, pile1);
 	pile2.size_nosort = pile2.size;
 	quickSort2(pile2, pile1, pivot);
 }
@@ -544,10 +584,10 @@ int		main(int argc, char *argv[])
 		petite_pile(pile1, pile2);
 	else
 		quickSort(pile1, pile2, pile1.size);
-/*		ft_putstr("pile A =");
+		ft_putstr("pile A =");
 		affiche_tab(pile1);
 		ft_putstr("pile B =");
 		affiche_tab(pile2);
-*/		return (0);
+		return (0);
 
 }
