@@ -6,7 +6,7 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 14:19:06 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/08 11:47:22 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/08 17:00:38 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ int		init_pile(t_pile *pile1, t_pile *pile2, int argc, char *argv[])
 	{
 		nb = ft_atoi(argv[i + 1]);
 		str_nb = ft_itoa(nb);	
-		if ((ft_str_isdigit((argv[i + 1])) == 1) &&
-	(argv[i + 1][0] == str_nb[0]) && same_nb(pile1->tab, nb, i) == 1)
-		{
+//		if ((ft_str_isdigit((argv[i + 1])) == 1) &&
+//	(argv[i + 1][0] == str_nb[0]) && same_nb(pile1->tab, nb, i) == 1)
+//		{
 			pile1->tab[i] = ft_atoi(str_nb);
-		}
-		else
-			return (0);
+//		}
+//		else
+//			return (0);
 		i++;
 	}
 	return (1);

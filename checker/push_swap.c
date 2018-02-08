@@ -6,7 +6,7 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:09:40 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/08 15:45:05 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/08 16:54:07 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,16 @@ void	petit_fin(t_pile *pile1, t_pile *pile2, int pivot)
 			{
 				ft_putstr("pb\n");
 				pa(pile1, pile2);
+				if (pile2->tab[0] > pile2->tab[pile2->size - 1])
+				{
+					ft_putstr("rb\n");
+					*pile2 = ra(*pile2);		
+				}
+				else if (pile2->tab[0] > pile2->tab[1])
+				{
+					ft_putstr("sb\n");
+					*pile2 = sa(*pile2);		
+				}
 			}	
 		}
 		i++;
@@ -450,7 +460,7 @@ void	quickSort3(t_pile pile1, t_pile pile2, int len)
 			pile1 = ra(pile1);
 			i++;
 		}
-//		print_pile(pile1, pile2);
+		print_pile(pile1, pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(pile1);
 		ft_putstr("pile B =");
@@ -461,7 +471,7 @@ void	quickSort3(t_pile pile1, t_pile pile2, int len)
 	{
 		ft_putstr("rra\n");
 		pile1 = rra(pile1);
-//		print_pile(pile1, pile2);
+		print_pile(pile1, pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(pile1);
 		ft_putstr("pile B =");
@@ -469,7 +479,9 @@ void	quickSort3(t_pile pile1, t_pile pile2, int len)
 *///		usleep(10000);
 			i--;	
 	}
+	printf("pas trier avant = %d tout la pile = %d\n", pile1.size_nosort, pile1.size);
 	pile2.size_nosort = (pile2.size/2) + 1;
+	printf("pas trier avant = %d\n", pile1.size_nosort);
 	quickSort4(pile2, pile1, pivot);
 }
 void	quickSort2(t_pile pile1, t_pile pile2, int pivot_1)
@@ -499,7 +511,10 @@ void	quickSort2(t_pile pile1, t_pile pile2, int pivot_1)
 		ft_putstr("pile B =");
 		affiche_tab(pile1);
 */		petit_fin(&pile2, &pile1, pivot_1);
-		pile2.size_nosort = (pile2.size / 2) + 1;
+		print_pile(pile2, pile1);
+		printf("pas trier avant = %d tout la pile = %d\n", pile2.size_nosort, pile2.size);
+		pile2.size_nosort = (pile2.size_nosort / 2);
+		printf("pas trier avant = %d\n", pile2.size_nosort);
 		quickSort3(pile2, pile1, pile2.size_nosort);
 		return;
 	}
@@ -584,10 +599,7 @@ int		main(int argc, char *argv[])
 		petite_pile(pile1, pile2);
 	else
 		quickSort(pile1, pile2, pile1.size);
-		ft_putstr("pile A =");
-		affiche_tab(pile1);
-		ft_putstr("pile B =");
-		affiche_tab(pile2);
-		return (0);
+	print_pile(pile1, pile2);
+	return (0);
 
 }
