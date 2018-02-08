@@ -6,7 +6,7 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 14:19:06 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/02 16:50:37 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/08 11:47:22 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int		init_pile(t_pile *pile1, t_pile *pile2, int argc, char *argv[])
 	i = 0;
 	pile1->size = argc - 1;
 	pile2->size = 0;
+	pile1->size_nosort = argc - 1;
+	pile2->size_nosort = 0;
 	pile1->tab = (int*)malloc(sizeof(int) * argc);
 	pile2->tab = (int*)malloc(sizeof(int) * argc);
 	while (i < pile1->size)
