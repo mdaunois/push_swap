@@ -6,7 +6,7 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:09:40 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/09 14:20:45 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/09 15:17:35 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,12 @@ void	petit_fin(t_pile *pile1, t_pile *pile2, int pivot)
 		{	
 			if (le_plus_petit(*pile2, lowest) < le_plus_petit(*pile1, lowest))
 			{
-				if (au_debut(*pile2, le_plus_petit(*pile2, lowest)) == 1)
+				if (pile2->tab[1] == le_plus_petit(*pile2, lowest))
+				{
+						ft_putstr("sb\n");
+						*pile2 = sa(*pile2);	
+				}
+				else if (au_debut(*pile2, le_plus_petit(*pile2, lowest)) == 1)
 				{
 					while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
 					{
@@ -207,11 +212,16 @@ void	petit_fin(t_pile *pile1, t_pile *pile2, int pivot)
 				ft_putstr("ra\n");
 				*pile1 = ra(*pile1);	
 			}
+			else if(pile1->tab[1] == le_plus_petit(*pile1, lowest))
+			{
+				ft_putstr("sa\n");
+				*pile1 = sa(*pile1);
+			}
 			else
 			{
 				ft_putstr("pb\n");
 				pa(pile1, pile2);
-				if (pile2->tab[0] > pile2->tab[pile2->size - 1])
+				if (pile2->size > 0 && pile2->tab[0] > pile2->tab[pile2->size - 1])
 				{
 					ft_putstr("rb\n");
 					*pile2 = ra(*pile2);		
@@ -233,7 +243,12 @@ void	petit_fin(t_pile *pile1, t_pile *pile2, int pivot)
 */	}
 	while (pile2->size != 0)
 	{
-				if (au_debut(*pile2, le_plus_petit(*pile2, lowest)) == 1)
+				if (pile2->tab[1] == le_plus_petit(*pile2, lowest))
+				{
+						ft_putstr("sb\n");
+						*pile2 = sa(*pile2);	
+				}
+				else if (au_debut(*pile2, le_plus_petit(*pile2, lowest)) == 1)
 				{
 					while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
 					{
@@ -258,7 +273,7 @@ void	petit_fin(t_pile *pile1, t_pile *pile2, int pivot)
 				pa(pile2, pile1);
 				ft_putstr("ra\n");
 				*pile1 = ra(*pile1);
-		
+//		print_pile(*pile1, *pile2);
 	}
 //		print_pile(*pile1, *pile2);
 /*		ft_putstr("pile A =");
@@ -319,7 +334,12 @@ void	tri_final(t_pile *pile1, t_pile *pile2)
 		{	
 			if (le_plus_petit(*pile2, lowest) < le_plus_petit(*pile1, lowest))
 			{
-				if (au_debut(*pile2, le_plus_petit(*pile2, lowest)) == 1)
+				if (pile2->tab[1] == le_plus_petit(*pile2, lowest))
+				{
+						ft_putstr("sb\n");
+						*pile2 = sa(*pile2);	
+				}
+				else if (au_debut(*pile2, le_plus_petit(*pile2, lowest)) == 1)
 				{
 					while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
 					{
@@ -345,6 +365,11 @@ void	tri_final(t_pile *pile1, t_pile *pile2)
 				ft_putstr("ra\n");
 				*pile1 = ra(*pile1);	
 			}
+			else if (pile1->tab[1] == le_plus_petit(*pile1, lowest))
+			{
+						ft_putstr("sa\n");
+						*pile1 = sa(*pile1);	
+			}
 			else
 			{
 				ft_putstr("pb\n");
@@ -361,39 +386,44 @@ void	tri_final(t_pile *pile1, t_pile *pile2)
 	}
 	while (pile2->size != 0)
 	{
-				if (au_debut(*pile2, le_plus_petit(*pile2, lowest)) == 1)
-				{
-					while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
-					{
-						ft_putstr("rb\n");
-						*pile2 = ra(*pile2);
-					}
-				}
-				else
-				{
-					while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
-					{
-						ft_putstr("rrb\n");
-						*pile2 = rra(*pile2);
-					}	
-				}
-			/*	while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
-				{
-					ft_putstr("rb\n");
-					*pile2 = ra(*pile2);
-				}
-			*/	ft_putstr("pa\n");
-				pa(pile2, pile1);
-				ft_putstr("ra\n");
-				*pile1 = ra(*pile1);
-		
-	}
+		if (pile2->tab[1] == le_plus_petit(*pile2, lowest))
+		{
+			ft_putstr("sb\n");
+			*pile2 = sa(*pile2);	
+		}
+		else if (au_debut(*pile2, le_plus_petit(*pile2, lowest)) == 1)
+		{
+			while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
+			{
+				ft_putstr("rb\n");
+				*pile2 = ra(*pile2);
+			}
+		}
+		else
+		{
+			while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
+			{
+				ft_putstr("rrb\n");
+				*pile2 = rra(*pile2);
+			}	
+		}
+	/*	while (pile2->tab[0] != le_plus_petit(*pile2, lowest))
+		{
+			ft_putstr("rb\n");
+			*pile2 = ra(*pile2);
+		}
+	*/	ft_putstr("pa\n");
+		pa(pile2, pile1);
+		ft_putstr("ra\n");
+		*pile1 = ra(*pile1);	
 //		print_pile(*pile1, *pile2);
-/*		ft_putstr("pile A =");
-		affiche_tab(*pile1);
-		ft_putstr("pile B =");
-		affiche_tab(*pile2);
-*///		usleep(20000);
+	}
+//	print_pile(*pile1, *pile2);
+/*	ft_putstr("pile A =");
+	affiche_tab(*pile1);
+	ft_putstr("pile B =");
+	affiche_tab(*pile2);
+*///usleep(20000);
 }
 
 int		edit_pivot(t_pile pile, int petit, int grand)
@@ -456,6 +486,36 @@ int 	put_in_b_bigger_pivot(t_pile *pile1, t_pile *pile2, int pivot, int i)
 	return (i);
 }
 
+int 	put_in_b_bigger_pivot_v2(t_pile *pile1, t_pile *pile2, int pivot, int i)
+{
+	int len;
+	int j;
+
+	len = pile1->size;
+	j = 0;
+	while (j < len)
+	{
+		j++;
+		if (pile1->tab[0] > pivot)
+		{
+			ft_putstr("pb\n");
+			pa(pile1, pile2);
+		}
+		else
+		{
+			ft_putstr("ra\n");
+			*pile1 = ra(*pile1);
+			i++;
+		}
+//		print_pile(*pile2, *pile1);
+/*		ft_putstr("pile A =");
+		affiche_tab(*pile2);
+		ft_putstr("pile B =");
+		affiche_tab(*pile1);
+		usleep(10000);
+*/	}
+	return (i);
+}
 int 	put_in_a_bigger_pivot(t_pile *pile1, t_pile *pile2, int pivot, int i)
 {
 	int len;
@@ -544,7 +604,7 @@ void	quickSort4(t_pile pile1, t_pile pile2, int pivot_1)
 		affiche_tab(pile1);
 */		return;
 	}
-	i = put_in_b_bigger_pivot(&pile1, &pile2, pivot, i);
+	i = put_in_b_bigger_pivot_v2(&pile1, &pile2, pivot, i);
 	pile1.size_nosort = pile1.size;
 	quickSort4(pile1, pile2, pivot_1);
 }
