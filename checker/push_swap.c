@@ -97,7 +97,7 @@ void	petite_pile(t_pile pile1, t_pile pile2)
 			ft_putstr("pb\n");
 			pa(&pile1, &pile2);
 		}
-		print_pile(pile1, pile2);
+//		print_pile(pile1, pile2);
 /*				ft_putstr("pile A =");
 				affiche_tab(pile1);
 				ft_putstr("pile B =");
@@ -449,7 +449,7 @@ void	tri_final(t_pile *pile1, t_pile *pile2)
 	*/		}	
 		}
 		i++;
-//		print_pile(*pile1, *pile2);
+		print_pile(*pile1, *pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(*pile1);
 		ft_putstr("pile B =");
@@ -599,43 +599,43 @@ int 	put_in_b_bigger_pivot_v2(t_pile *pile1, t_pile *pile2, int pivot, int i)
 	int j;
 	int lowest;
 
-	len = pile1->size;
+	len = pile2->size;
 	j = 0;
 //	printf("---------lowest = %d\n", lowest);
 //	while (j < len)
-	while (stop_loop2(*pile1, pivot) == 0)
+	while (stop_loop2(*pile2, pivot) == 0)
 	{
-		lowest = lowest_in_pile(*pile1);
+		lowest = lowest_in_pile(*pile2);
 		j++;
-		if (pile1->tab[0] == lowest)
+		if (pile2->tab[0] == lowest)
 		{
-			ft_putstr("pb\n");
-			pa(pile1, pile2);
-			if (pile1->tab[0] < pivot)
+			ft_putstr("pa\n");
+			pa(pile2, pile1);
+			if (pile2->tab[0] < pivot)
 			{
 				ft_putstr("rr\n");
-				*pile1 = ra(*pile1);
 				*pile2 = ra(*pile2);
+				*pile1 = ra(*pile1);
 			}
 			else
 			{
 				ft_putstr("ra\n");
-				*pile2 = ra(*pile2);
+				*pile1 = ra(*pile1);
 			}
 			
 		}
-		else if (pile1->tab[0] > pivot)
+		else if (pile2->tab[0] > pivot)
 		{
-			ft_putstr("pb\n");
-			pa(pile1, pile2);
+			ft_putstr("pa\n");
+			pa(pile2, pile1);
 		}
 		else
 		{
-			ft_putstr("ra\n");
-			*pile1 = ra(*pile1);
+			ft_putstr("rb\n");
+			*pile2 = ra(*pile2);
 			i++;
 		}
-//		print_pile(*pile2, *pile1);
+//		print_pile(*pile1, *pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(*pile2);
 		ft_putstr("pile B =");
@@ -653,23 +653,23 @@ int 	put_in_a_bigger_pivot(t_pile *pile1, t_pile *pile2, int pivot, int i)
 	int lowest;
 
 	//printf("---------pivot = %d\n", pivot);
-	len = pile1->size;
+	len = pile2->size;
 	j = 0;
-	while (stop_loop2(*pile1, pivot) == 0)
+	while (stop_loop2(*pile2, pivot) == 0)
 	{
 		j++;
-		if (pile1->tab[0] > pivot)
+		if (pile2->tab[0] > pivot)
 		{
-			ft_putstr("pb\n");
-			pa(pile1, pile2);	
+			ft_putstr("pa\n");
+			pa(pile2, pile1);	
 		}
 		else
 		{
-			ft_putstr("ra\n");
-			*pile1 = ra(*pile1);
+			ft_putstr("rb\n");
+			*pile2 = ra(*pile2);
 			i++;
 		}
-//		print_pile(*pile2, *pile1);
+//		print_pile(*pile1, *pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(*pile2);
 		ft_putstr("pile B =");
@@ -718,16 +718,16 @@ void	quickSort4(t_pile pile1, t_pile pile2, int pivot_1)
 	int pivot;
 	int i
 		;
-	pivot = edit_pivot(pile1, 0, 1);
+	pivot = edit_pivot(pile2, 0, 1);
 	i = 0;
-	if (pile1.size == 2)
+	if (pile2.size == 2)
 	{
-		if (pile1.tab[0] < pile1.tab[1])
+		if (pile2.tab[0] < pile2.tab[1])
 		{
-			ft_putstr("sa\n");
-			pile1 = sa(pile1);
+			ft_putstr("sb\n");
+			pile2 = sa(pile2);
 		}
-		tri_final(&pile2, &pile1);
+		tri_final(&pile1, &pile2);
 //		print_pile(pile1, pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(pile2);
@@ -736,7 +736,7 @@ void	quickSort4(t_pile pile1, t_pile pile2, int pivot_1)
 */		return;
 	}
 	i = put_in_b_bigger_pivot_v2(&pile1, &pile2, pivot, i);
-	pile1.size_nosort = pile1.size;
+	pile2.size_nosort = pile2.size;
 	quickSort4(pile1, pile2, pivot_1);
 }
 void	quickSort3(t_pile pile1, t_pile pile2, int len)
@@ -779,7 +779,7 @@ void	quickSort3(t_pile pile1, t_pile pile2, int len)
 			i--;	
 	}
 //	printf("pas trier avant = %d\n", pile1.size_nosort);
-	quickSort4(pile2, pile1, pivot);
+	quickSort4(pile1, pile2, pivot);
 }
 
 void	quickSort2(t_pile pile1, t_pile pile2, int pivot_1)
@@ -787,34 +787,34 @@ void	quickSort2(t_pile pile1, t_pile pile2, int pivot_1)
 	int pivot;
 	int i;
 
-	pivot = edit_pivot(pile1, 0, 1);
+	pivot = edit_pivot(pile2, 0, 1);
 	i = 0;
-	if (pile1.size == 2)
+	if (pile2.size == 2)
 	{
-		if (pile1.tab[0] < pile1.tab[1])
+		if (pile2.tab[0] < pile2.tab[1])
 		{
-			ft_putstr("sa\n");
-			pile1 = sa(pile1);
+			ft_putstr("sb\n");
+			pile2 = sa(pile2);
 		}
 		ft_putstr("pa\n");
 		ft_putstr("pa\n");
-		pa(&pile1, &pile2);	
-		pa(&pile1, &pile2);	
-//		print_pile(pile2, pile1);
+		pa(&pile2, &pile1);	
+		pa(&pile2, &pile1);	
+//		print_pile(pile1, pile2);
 /*		ft_putstr("pile A =");
 		affiche_tab(pile2);
 		ft_putstr("pile B =");
 		affiche_tab(pile1);
-*/		petit_fin(&pile2, &pile1, pivot_1);
+*/		petit_fin(&pile1, &pile2, pivot_1);
 //		print_pile(pile2, pile1);
 //		printf("pas trier avant = %d tout la pile = %d\n", pile2.size_nosort, pile2.size);
-		pile2.size_nosort = (pile2.size_nosort / 2);
+		pile1.size_nosort = (pile1.size_nosort / 2);
 //		printf("pas trier avant = %d\n", pile2.size_nosort);
-		quickSort3(pile2, pile1, pile2.size_nosort);
+		quickSort3(pile1, pile2, pile1.size_nosort);
 		return;
 	}
-	i = put_in_a_bigger_pivot(&pile1, &pile2, pivot, i);
-	pile1.size_nosort = pile1.size;
+	i = put_in_a_bigger_pivot(&pile1, &pile2, pivot, i);//changer dans la fonction
+	pile2.size_nosort = pile2.size;
 	quickSort2(pile1, pile2, pivot_1);
 }
 
@@ -826,7 +826,7 @@ void	quickSort(t_pile pile1, t_pile pile2, int len)
 	pivot = edit_pivot(pile1, 0, 1);
 	i = put_in_b_bigger_pivot(&pile1, &pile2, pivot, 0);
 	pile2.size_nosort = pile2.size;
-	quickSort2(pile2, pile1, pivot);
+	quickSort2(pile1, pile2, pivot);
 }
 
 
@@ -848,7 +848,7 @@ int		main(int argc, char *argv[])
 		petite_pile(pile1, pile2);
 	else
 		quickSort(pile1, pile2, pile1.size);
-	print_pile(pile1, pile2);
+//	print_pile(pile1, pile2);
 	return (0);
 
 }
