@@ -6,7 +6,7 @@
 #    By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 15:12:41 by clecalie          #+#    #+#              #
-#    Updated: 2018/02/07 14:35:35 by mdaunois         ###   ########.fr        #
+#    Updated: 2018/02/12 13:16:59 by mdaunois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,12 @@ NAME = checker.a
 SRCS =	checker.c\
 		mouv.c\
 		init.c\
-		outil.c
+		outil.c\
+		outil2.c\
+		sort.c\
+		quicksort.c\
+		do_quicksort.c\
+		light_pile.c
 
 OBJ = $(SRCS:.c=.o)
 
