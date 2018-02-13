@@ -76,7 +76,7 @@ int		main(int argc, char *argv[])
 	if (pile1.size < 12)
 		petite_pile(pile1, pile2);
 	else
-		quickSort(pile1, pile2, pile1.size);
-	print_pile(pile1, pile2);
+		quicksort(pile1, pile2, pile1.size);
+//	print_pile(pile1, pile2);
 	return (0);
 }

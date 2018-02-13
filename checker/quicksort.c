@@ -31,7 +31,7 @@ void	quicksort4(t_pile pile1, t_pile pile2, int pivot_1)
 	}
 	i = put_in_b_bigger_pivot_v2(&pile1, &pile2, pivot, i);
 	pile2.size_nosort = pile2.size;
-	quickSort4(pile1, pile2, pivot_1);
+	quicksort4(pile1, pile2, pivot_1);
 }
 
 void	quicksort3(t_pile pile1, t_pile pile2, int len)
@@ -59,7 +59,7 @@ void	quicksort3(t_pile pile1, t_pile pile2, int len)
 		pile1 = rra(pile1);
 		i--;
 	}
-	quickSort4(pile1, pile2, pivot);
+	quicksort4(pile1, pile2, pivot);
 }
 
 void	quicksort2(t_pile pile1, t_pile pile2, int pivot_1)
@@ -84,12 +84,12 @@ void	quicksort2(t_pile pile1, t_pile pile2, int pivot_1)
 		pile1 = ra(pile1);
 		petit_fin(&pile1, &pile2, pivot_1);
 		pile1.size_nosort = (pile1.size_nosort / 2);
-		quickSort3(pile1, pile2, pile1.size_nosort);
+		quicksort3(pile1, pile2, pile1.size_nosort);
 		return ;
 	}
 	i = put_in_a_bigger_pivot(&pile1, &pile2, pivot, i);
 	pile2.size_nosort = pile2.size;
-	quickSort2(pile1, pile2, pivot_1);
+	quicksort2(pile1, pile2, pivot_1);
 }
 
 void	quicksort(t_pile pile1, t_pile pile2, int len)
@@ -100,5 +100,5 @@ void	quicksort(t_pile pile1, t_pile pile2, int len)
 	pivot = edit_pivot(pile1, 0, 1);
 	i = put_in_b_bigger_pivot(&pile1, &pile2, pivot, 0);
 	pile2.size_nosort = pile2.size;
-	quickSort2(pile1, pile2, pivot);
+	quicksort2(pile1, pile2, pivot);
 }

@@ -55,12 +55,13 @@ int		init_pile(t_pile *pile1, t_pile *pile2, int argc, char *argv[])
 	pile2->size_nosort = 0;
 	pile1->tab = (int*)malloc(sizeof(int) * argc);
 	pile2->tab = (int*)malloc(sizeof(int) * argc);
+//	printf("%d, %s\n", argc, argv[1]);
 	while (i < pile1->size)
 	{
 		nb = ft_atoi(argv[i + 1]);
 		str_nb = ft_itoa(nb);
 		if ((ft_str_isdigit((argv[i + 1])) == 1) &&
-	(argv[i + 1][0] == str_nb[0]) && same_nb(pile1->tab, nb, i) == 1)
+	/*(argv[i + 1][0] == str_nb[0]) &&*/ same_nb(pile1->tab, nb, i) == 1)
 		{
 			pile1->tab[i] = ft_atoi(str_nb);
 		}

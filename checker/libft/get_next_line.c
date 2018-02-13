@@ -12,7 +12,7 @@
 
 #include "includes/libft.h"
 
-char	*ft_strndup(const char *s1, int size)
+/*char	*ft_strndup(const char *s1, int size)
 {
 	int		i;
 	int		len;
@@ -34,7 +34,7 @@ char	*ft_strndup(const char *s1, int size)
 	ret[i] = '\0';
 	return (ret);
 }
-
+*/
 int		loop(char *buf, char **tab2, char **rest)
 {
 	int i;
