@@ -80,18 +80,31 @@ int		main(int argc, char *argv[])
 			pa(&pile2, &pile1);
 		else if (!ft_strcmp(content, "pb"))
 			pa(&pile1, &pile2);
-		/*	else
-			{
+		else if (!ft_strcmp(content, "\0"))
+		{
+
+		}
+		else
+		{
 			ft_putstr_fd("Error\n", 2);
 			return (0);
-			}*/
-		ft_putstr("pile A = ");
+		}
+
+	//	ft_putstr("pile A = ");
+	//	affiche_tab(pile1);
+	//	ft_putstr("pile B = ");
+	//	affiche_tab(pile2);
+	//	ft_putchar('\n');
+	}
+	if (check(pile1, pile2) == 1)
+	{
+	/*	ft_putstr("\033[32mpile A = ");
 		affiche_tab(pile1);
 		ft_putstr("pile B = ");
 		affiche_tab(pile2);
+		ft_putstr("\033[37m");
+	*/	ft_putstr("OK\n");
 	}
-	if (check(pile1, pile2) == 1)
-		ft_putstr("OK\n");
 	else
 		ft_putstr("KO\n");
 	free(pile1.tab);

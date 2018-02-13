@@ -27,10 +27,10 @@ t_pile			sa(t_pile pile);
 void			pa(t_pile *pile1, t_pile *pile2);
 int				init_pile(t_pile *pile1, t_pile *pile2, int argc, char *argv[]);
 void			affiche_tab(t_pile pile);
-void			quicksort(t_pile pile1, t_pile pile2, int len);
-void			quicksort2(t_pile pile1, t_pile pile2, int pivot_1);
-void			quicksort3(t_pile pile1, t_pile pile2, int len);
-void			quicksort4(t_pile pile1, t_pile pile2, int pivot_1);
+void			quicksort(t_pile *pile1, t_pile *pile2, int len);
+void			quicksort2(t_pile *pile1, t_pile *pile2, int pivot_1);
+void			quicksort3(t_pile *pile1, t_pile *pile2, int len);
+void			quicksort4(t_pile *pile1, t_pile *pile2, int pivot_1);
 int				put_in_a_bigger_pivot_v2
 		(t_pile *pile1, t_pile *pile2, int pivot, int i);
 int				put_in_a_bigger_pivot

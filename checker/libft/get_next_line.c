@@ -12,93 +12,71 @@
 
 #include "includes/libft.h"
 
-/*char	*ft_strndup(const char *s1, int size)
+static char		*safe_join(char *s1, char const *s2)
 {
-	int		i;
-	int		len;
-	char	*ret;
-
-	i = 0;
-	len = 0;
-	while (s1[len])
-		len++;
-	if (size > len)
-		return (0);
-	if (!(ret = (char*)malloc(sizeof(char) * (size + 1))))
-		return (0);
-	while (i < size)
-	{
-		ret[i] = s1[i];
-		i++;
-	}
-	ret[i] = '\0';
-	return (ret);
-}
-*/
-int		loop(char *buf, char **tab2, char **rest)
-{
-	int i;
-	
-	i = -1;	
-	while (buf[++i])
-		if (buf[i] == '\n')
-		{
-			*tab2 = ft_strncat(*tab2, buf, (size_t)i);
-			*rest = ft_strdup(&buf[i + 1]);
-			return (1);
-		}
-	return (0);
+    size_t	s1_len;
+    size_t	s2_len;
+    char	*result;
+    
+    s1_len = (s1) ? ft_strlen(s1) : 0;
+    s2_len = ft_strlen(s2);
+    result = ft_strnew(s1_len + s2_len);
+    if (result)
+    {
+        if (s1)
+            ft_memcpy(result, s1, s1_len);
+        ft_memcpy(result + s1_len, s2, s2_len);
+    }
+    if (s1)
+        ft_strdel(&s1);
+    return (result);
 }
 
-int		get_file_content(int fd, char **tab2, char **rest)
+static int		cut_at_newline(char **s_buff, char **line)
 {
-	char	buf[BUFF_SIZE + 1];
-	int		ret;
-	char	*tab1;
-
-	while ((ret = read(fd, buf, BUFF_SIZE)))
-	{
-		if (ret == -1 || !(tab1 = malloc(sizeof(char) * ft_strlen(buf + 1))))
-			return (-1);
-		buf[ret] = '\0';
-		if (*tab2)
-			tab1 = *tab2;
-		if (!(*tab2 = malloc(sizeof(char) * (ft_strlen(tab1) + ft_strlen(buf) + 1))))
-			return (-1);
-		*tab2 = ft_strcpy(*tab2, tab1);
-		free(tab1);
-		if (loop(buf, tab2, rest))
-			return (1);
-		*tab2 = ft_strcat(*tab2, buf);
-	}
-	if (*tab2)
-		return (1);
-	return (0);
+    char	*at;
+    
+    if ((at = ft_strchr(*s_buff, '\n')))
+    {
+        *line = ft_strsub(*s_buff, 0, at - *s_buff);
+        ft_strcpy(*s_buff, at + 1);
+        return (1);
+    }
+    return (0);
 }
 
-int		get_next_line(const int fd, char **line)
+static void		clear(char **s_buff, char **line)
 {
-	static char	*rest = NULL;
-	int			i;
+    if (*s_buff)
+        ft_strdel(s_buff);
+    ft_strdel(line);
+}
 
-	if (fd < 0 || fd == 1 || fd == 2 || line == NULL)
-		return (-1);
-	*line = NULL;
-	if (ft_strlen(rest))
-	{
-		i = -1;
-		while (rest[++i])
-			if (rest[i] == '\n')
-			{
-				*line = ft_strndup(rest, i);
-				rest = ft_strdup(&rest[i + 1]);
-				return (1);
-			}
-		if (rest && !(*line))
-		{
-			*line = ft_strdup(rest);
-			rest = NULL;
-		}
-	}
-	return (get_file_content(fd, line, &rest));
+int				get_next_line(int const fd, char **line)
+{
+    int				bytes_read;
+    char			buff[BUFF_SIZE + 1];
+    static char		*s_buff = NULL;
+    
+    if (!line)
+        return (-1);
+    if (s_buff && cut_at_newline(&s_buff, line))
+        return (1);
+    while ((bytes_read = read(fd, buff, BUFF_SIZE)) > 0)
+    {
+        buff[bytes_read] = '\0';
+        s_buff = safe_join(s_buff, buff);
+        if (cut_at_newline(&s_buff, line))
+            return (1);
+    }
+    if (bytes_read == -1)
+        return (-1);
+    if (s_buff && *s_buff)
+    {
+        *line = ft_strdup(s_buff);
+        ft_strdel(&s_buff);
+        return (1);
+    }
+    clear(&s_buff, line);
+    return (0);
 }

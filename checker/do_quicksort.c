@@ -107,7 +107,7 @@ int		put_in_a_bigger_pivot(t_pile *pile1, t_pile *pile2, int pivot, int i)
 			*pile2 = ra(*pile2);
 			i++;
 		}
-		print_pile(*pile1, *pile2);
+//		print_pile(*pile1, *pile2);
 	}
 	return (i);
 }
