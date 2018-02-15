@@ -6,7 +6,7 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 15:20:07 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/14 15:47:29 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/15 12:33:53 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		main(int argc, char *argv[])
 	int		order;
 	char	*content;
 
-	content = "";
+	content = NULL;
 	if (argc == 1)
 		return (0);
 	if (init_pile(&pile1, &pile2, argc, argv) != 1)
