@@ -6,19 +6,11 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 15:09:40 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/14 16:26:12 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/19 13:00:57 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
-
-void	print_pile(t_pile pile1, t_pile pile2)
-{
-	ft_putstr("pile A =");
-	affiche_tab(pile1);
-	ft_putstr("pile B =");
-	affiche_tab(pile2);
-}
 
 void	petit_fin(t_pile *pile1, t_pile *pile2, int pivot)
 {
@@ -72,9 +64,5 @@ int		main(int argc, char *argv[])
 		petite_pile(pile1, pile2);
 	else
 		quicksort(&pile1, &pile2);
-	free(pile1.tab);
-	pile1.tab = NULL;
-	free(pile2.tab);
-	pile2.tab = NULL;
 	return (0);
 }

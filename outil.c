@@ -6,23 +6,36 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 14:19:06 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/15 12:09:33 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/19 14:22:24 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-void	affiche_tab(t_pile pile)
+void	affiche_tab(t_pile pile, int c)
 {
 	int i;
 
 	i = 0;
+	ft_putstr("\033[3");
+	ft_putchar(c);
+	ft_putchar('m');
 	while (i < pile.size)
 	{
 		ft_putnbr(pile.tab[i]);
 		ft_putstr(" ");
 		i++;
 	}
+	ft_putstr("\033[37m");
+	ft_putstr("\n");
+}
+
+void	print_pile(t_pile pile1, t_pile pile2, int c)
+{
+	ft_putstr("Stack A =");
+	affiche_tab(pile1, c);
+	ft_putstr("Stack B =");
+	affiche_tab(pile2, c - 2);
 	ft_putstr("\n");
 }
 

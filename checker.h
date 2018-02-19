@@ -6,7 +6,7 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 13:41:15 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/14 16:23:43 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/19 13:26:00 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_pile			rra(t_pile pile);
 t_pile			sa(t_pile pile);
 void			pa(t_pile *pile1, t_pile *pile2);
 int				init_pile(t_pile *pile1, t_pile *pile2, int argc, char *argv[]);
-void			affiche_tab(t_pile pile);
+void			affiche_tab(t_pile pile, int c);
 void			quicksort(t_pile *pile1, t_pile *pile2);
 void			quicksort2(t_pile *pile1, t_pile *pile2, int pivot_1);
 void			quicksort3(t_pile *pile1, t_pile *pile2);
@@ -50,7 +50,7 @@ int				stop_loop(t_pile pile, int pivot);
 int				stop_loop2(t_pile pile, int pivot);
 void			petite_pile(t_pile pile1, t_pile pile2);
 int				check(t_pile pile1, t_pile pile2);
-void			print_pile(t_pile pile1, t_pile pile2);
+void			print_pile(t_pile pile1, t_pile pile2, int c);
 void			petit_fin(t_pile *pile1, t_pile *pile2, int pivot);
 void			tri_final(t_pile *pile1, t_pile *pile2);
 void			free_tab(t_pile *pile1, t_pile *pile2);
@@ -59,5 +59,7 @@ void			do_rb(t_pile *pile);
 void			do_sa(t_pile *pile);
 void			do_sb(t_pile *pile);
 void			do_pa(t_pile *pile1, t_pile *pile2);
+int				do_op(char **content, t_pile *pile1,
+t_pile *pile2, char *option);
 
 #endif
