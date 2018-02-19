@@ -6,7 +6,7 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 14:19:06 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/14 11:48:51 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/19 16:00:24 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	put_lowest_at_end(t_pile *pile1, t_pile *pile2, int lowest)
 {
 	if (le_plus_petit(*pile1, lowest) == pile1->tab[0])
 	{
-		if (pile2->tab[0] > pile2->tab[1])
+		if (pile2->size > 0 && pile2->tab[0] > pile2->tab[1])
 		{
 			ft_putstr("rr\n");
 			*pile1 = ra(*pile1);

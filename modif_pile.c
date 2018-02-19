@@ -6,7 +6,7 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 15:20:07 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/19 14:50:19 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/19 16:02:18 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int		do_op(char **content, t_pile *pile1, t_pile *pile2, char *option)
 		ft_putstr_fd("Error\n", 2);
 		free_tab(pile1, pile2);
 		ft_strdel(content);
-	//	while (1);
 		return (0);
 	}
 	if (ft_strchr(option, 'o'))

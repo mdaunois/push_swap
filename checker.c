@@ -6,7 +6,7 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 15:20:07 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/19 14:45:02 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/19 16:10:07 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,10 @@ int		main(int argc, char *argv[])
 		ft_putstr_fd("Error\n", 2);
 		return (0);
 	}
-	while ((order = get_next_line(0, &content)) > 0)
+	while ((order = get_next_line(0, &content)) > 0 && ++i)
 	{
 		if (do_op(&content, &pile1, &pile2, argv[1]) == 0)
 			return (0);
-		i++;
 		if (ft_strchr(argv[1], 'c'))
 			print_pile(pile1, pile2, '6');
 	}
