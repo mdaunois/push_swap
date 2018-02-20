@@ -6,7 +6,7 @@
 #    By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/29 15:12:41 by clecalie          #+#    #+#              #
-#    Updated: 2018/02/19 13:14:47 by mdaunois         ###   ########.fr        #
+#    Updated: 2018/02/20 15:03:23 by mdaunois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,13 @@ NAME_1 = checker
 NAME_2 = push_swap
 
 SRCS_CHECKER =		checker.c\
+			modif_pile.c\
 			mouv.c\
 			init.c\
-			outil.c\
-			modif_pile.c
+			outil.c
 
 SRCS_PUSH_SWAP =	push_swap.c\
+			modif_pile.c\
 			mouv.c\
 			init.c\
 			outil.c\

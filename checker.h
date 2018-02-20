@@ -6,7 +6,7 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 13:41:15 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/19 13:26:00 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/20 15:20:15 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void			do_sb(t_pile *pile);
 void			do_pa(t_pile *pile1, t_pile *pile2);
 int				do_op(char **content, t_pile *pile1,
 t_pile *pile2, char *option);
+int				ft_str_isdigit(char *str);
 
 #endif

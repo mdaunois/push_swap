@@ -6,11 +6,27 @@
 /*   By: mdaunois <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 15:20:07 by mdaunois          #+#    #+#             */
-/*   Updated: 2018/02/19 16:02:18 by mdaunois         ###   ########.fr       */
+/*   Updated: 2018/02/20 15:21:19 by mdaunois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
+
+int		ft_str_isdigit(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (i == 0 && (str[i] == '-' || str[i] == '+'))
+			i++;
+		if (ft_isdigit(str[i]) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 void	free_tab(t_pile *pile1, t_pile *pile2)
 {
@@ -24,9 +40,7 @@ void	free_tab(t_pile *pile1, t_pile *pile2)
 		i++;
 	}
 	free(pile1->tab);
-	pile1->tab = NULL;
 	free(pile2->tab);
-	pile2->tab = NULL;
 }
 
 void	swap(char *content, t_pile *pile1, t_pile *pile2)
